@@ -1,0 +1,46 @@
+version: '2.3'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10
+    ports:
+      - 5432
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - ./mysql/scripts:/docker-entrypoint-initdb.d
+    command: [--ssl=0]
+    networks:
+      - ws_vpn
+  am-analytics:
+    container_name: am-analytics
+    image: wso2am-analytics:2.2.0
+    ports:
+      - "9444:9444"
+      - "9764:9764"
+      - "4041:4041"
+#   volumes:
+#    - ./apim-analytics:/home/wso2carbon/volumes
+    links:
+      - postgres
+    networks:
+      - ws_vpn
+  api-manager:
+    container_name: am-manager
+    image: wso2am:2.2.0
+#    volumes:
+#      - ./apim:/home/wso2carbon/volumes
+    ports:
+      - "9763:9763"
+      - "9443:9443"
+      - "8280:8280"
+      - "8243:8243"
+    links:
+      - postgres
+      - am-analytics
+    networks:
+      - ws_vpn
+networks:
+  ws_vpn:
+    external: true
+
