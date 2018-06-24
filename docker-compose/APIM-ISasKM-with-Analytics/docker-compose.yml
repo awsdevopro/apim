@@ -40,6 +40,7 @@ services:
     networks:
       - ws_vpn
   api-manager:
+    container_name: api-manager
     image: wso2am:2.2.0
     
 #    volumes:
