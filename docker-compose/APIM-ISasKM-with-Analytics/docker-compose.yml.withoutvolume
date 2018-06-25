@@ -7,11 +7,8 @@ services:
       - 5432
     environment:
       MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./postgres/scripts:/docker-entrypoint-initdb.d
-      - ./postgres/scripts:/home/wso2carbon/wso2is-km-5.5.0/dbscripts
-      - ./postgres/scripts:/home/wso2carbon/wso2am-2.2.0/dbscripts
-      - ./postgres/scripts:/home/wso2carbon/wso2am-analytics-2.2.0/dbscripts
+#    volumes:
+#      - ./postgres/scripts:/docker-entrypoint-initdb.d
     command: [--ssl=0]
     
   am-analytics:
@@ -22,10 +19,8 @@ services:
       - "9764:9764"
       - "4041:4041"
     
-    volumes:
+#    volumes:
 #      - ./apim-analytics:/home/wso2carbon/volumes
-      - ./apim-analytics:/home/wso2carbon/wso2am-analytics-2.2.0/repository/conf/datasources
-      - ./apim-analytics:/home/wso2carbon/wso2am-analytics-2.2.0/repository/components/lib
     links:
       - postgres
     networks:
@@ -34,11 +29,8 @@ services:
     container_name: is-as-km 
     image: wso2is-km:5.5.0
     
-    volumes:
+#    volumes:
 #      - ./is-as-km:/home/wso2carbon/volumes
-      - ./is-as-km:/home/wso2carbon/wso2is-km-5.5.0/repository/components/lib
-      - ./is-as-km:/home/wso2carbon/wso2is-km-5.5.0/repository/conf/identity
-      - ./is-as-km:/home/wso2carbon/wso2is-km-5.5.0/repository/conf/datasources
     ports:
       - "9765:9763"
       - "9445:9443"
@@ -51,10 +43,8 @@ services:
     container_name: api-manager
     image: wso2am:2.2.0
     
-    volumes:
+#    volumes:
 #      - ./apim:/home/wso2carbon/volumes
-      - ./apim:/home/wso2carbon/wso2is-km-5.5.0/bin
-      - ./apim:/home/wso2carbon/wso2is-km-5.5.0/repository
     ports:
       - "9763:9763"
       - "9443:9443"
